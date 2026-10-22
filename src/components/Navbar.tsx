@@ -11,7 +11,7 @@ const Navbar = () => {
           <a href="#projects" className="text-gray-300 hover:text-white">Projects</a>
           <a href="#cv" className="text-gray-300 hover:text-white">CV</a>
           <FlipperText text="LinkedIn" icon="linkedin" url="https://www.linkedin.com/in/andrespineirolage/" color="[#0A66C2]" />
-          <FlipperText text="GitHub" icon="github" url="https://www.github.com/andrepi97" />
+          <FlipperText text="GitHub" icon="github" url="https://www.github.com/andrespi97" />
         </div>
       </div>
     </nav>
