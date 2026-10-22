@@ -1,0 +1,156 @@
+/* Sección de arquitectura en estilo risografía: una hoja de papel impresa con tintas planas sobre la página oscura.
+   Todo va acotado a .arch para no tocar el tema global del portfolio. */
+.arch {
+  --paper: #F1F2EE; --ink: #26245A; --muted: #66648C; --panel: #F7F7F4; --line-soft: #CFCFDA;
+  --accent: #FF48B0; --on-accent: #FFFFFF; --edge: #26245A; --hot: #FF48B0;
+  --slab-top: #F1F2EE; --slab-l: #D9D9E3; --slab-r: #C3C3D3;
+  --r-ingest: #00A95C; --r-app: #0078BF; --r-data: #FFB511; --r-ext: #A8ACB4; --r-ops: #FF48B0;
+  --hatch: rgba(241, 242, 238, .75); --ok: #00794A; --err: #C2185B;
+  --f-display: "Europa Grotesk SH DemBol", system-ui, sans-serif;
+  --f-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+  /* Las tintas se multiplican entre sí: el aislamiento evita que se mezclen con el fondo oscuro de la página */
+  isolation: isolate;
+  color-scheme: light;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  .10 0 0 0 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  font: 15px/1.55 var(--f-body);
+  border-radius: 6px;
+  padding: clamp(20px, 3vw, 36px);
+  display: grid;
+  gap: 24px;
+  max-width: 1240px;
+  margin-inline: auto;
+}
+.arch-section { padding-block: 80px; padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px)); scroll-margin-top: 64px; }
+
+.arch :is(h2, h3, p, dl, dd) { margin: 0; }
+.arch button { cursor: pointer; font: inherit; color: inherit; }
+.arch :is(button, [tabindex]):focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Cabecera */
+.arch .eyebrow { font: 500 12px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.arch h2 { font: 700 clamp(40px, 6vw, 68px)/.95 var(--f-display); letter-spacing: -.02em; text-wrap: balance; }
+.arch .lead { margin-top: 12px; color: var(--muted); max-width: 60ch; font-size: 17px; }
+.arch-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+.arch-tabs button { font: 500 13px/1 var(--f-mono); padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line-soft); color: var(--muted); }
+.arch-tabs button[aria-current="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+/* Escenario + ficha */
+.arch-layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 20px; align-items: start; }
+.arch-stage { border: 1px solid var(--line-soft); border-radius: 10px; background: color-mix(in oklab, var(--panel) 55%, transparent); min-width: 0; }
+.arch-bar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; padding: 12px 14px; border-bottom: 1px solid var(--line-soft); }
+.arch .seg { display: inline-flex; flex-wrap: wrap; padding: 3px; border-radius: 8px; border: 1px solid var(--line-soft); background: var(--panel); gap: 2px; }
+.arch .seg button { font-size: 13px; font-weight: 500; padding: 8px 12px; border-radius: 6px; color: var(--muted); }
+.arch .seg button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.arch .seg button:hover:not([aria-pressed="true"]) { color: var(--ink); }
+.arch .tools { display: flex; gap: 6px; flex-wrap: wrap; }
+.arch .tool { font-size: 13px; font-weight: 500; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line-soft); display: inline-flex; gap: 8px; align-items: center; }
+.arch .tool[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.arch .tool kbd { font: 500 10px/1 var(--f-mono); padding: 3px 5px; border: 1px solid currentColor; border-radius: 4px; opacity: .7; }
+.arch-scroll { overflow-x: auto; }
+.arch-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; padding: 12px 14px; border-top: 1px solid var(--line-soft); font: 12px/1 var(--f-mono); color: var(--muted); }
+.arch-legend span { display: inline-flex; align-items: center; gap: 7px; }
+.arch-legend i { width: 10px; height: 10px; border-radius: 2px; background: var(--c); }
+
+.arch-dbg { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--line-soft);
+  font: 12px/1.2 var(--f-mono); color: var(--muted); background: color-mix(in oklab, var(--accent) 7%, transparent); }
+.arch-dbg label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+.arch-dbg fieldset { border: 0; margin: 0; padding: 0; display: inline-flex; gap: 10px; align-items: center; }
+.arch-dbg legend { float: left; margin-right: 4px; }
+.arch-dbg input { accent-color: var(--accent); }
+.arch-dbg .stats { margin-left: auto; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+.arch-panel { border: 1px solid var(--line-soft); border-radius: 10px; background: var(--panel); padding: 20px; display: grid; gap: 18px; min-width: 0; }
+.arch-panel h3 { font: 500 11px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.arch-panel .node-name { font: 700 26px/1.1 var(--f-display); letter-spacing: -.01em; text-transform: none; color: var(--ink); margin: 10px 0 0; }
+.arch .sub { font: 13px/1.4 var(--f-mono); color: var(--muted); margin-top: 6px; }
+.arch .pill { display: inline-flex; align-items: center; gap: 6px; font: 500 11px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.arch .pill i { width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+.arch dl { display: grid; gap: 10px; }
+.arch dl > div { display: grid; gap: 2px; }
+.arch dt { color: var(--muted); font-size: 13px; }
+.arch dd { font: 13px/1.5 var(--f-mono); }
+.arch .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.arch .chip { font: 13px/1 var(--f-mono); padding: 7px 10px; border-radius: 6px; border: 1px solid var(--line-soft); }
+.arch .chip[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.arch .chip:hover:not([aria-pressed="true"]) { border-color: var(--muted); }
+.arch .back { justify-self: start; font-size: 13px; font-weight: 500; color: var(--accent); }
+.arch .hint { font-size: 13px; color: var(--muted); }
+.arch .dec-mark { color: var(--accent); fill: var(--accent); }
+.arch .decision { border-left: 3px solid var(--accent); padding-left: 12px; display: grid; gap: 6px; }
+.arch .decision h3 { margin-bottom: 4px; }
+.arch .draft { font: 500 10px/1 var(--f-mono); letter-spacing: .04em; text-transform: none; padding: 3px 6px; border: 1px dashed var(--muted); border-radius: 4px; }
+.arch .dec-pick span { color: var(--muted); }
+
+.arch-src { border: 1px solid var(--line-soft); border-radius: 10px; background: var(--panel); padding: 16px; display: grid; gap: 10px; min-width: 0; }
+.arch-src .src-head { display: flex; flex-wrap: wrap; gap: 10px 20px; justify-content: space-between; align-items: start; }
+.arch-src h3 { font: 500 11px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.arch-src code { font: 12px var(--f-mono); }
+.arch-src textarea { width: 100%; height: 420px; resize: vertical; font: 12.5px/1.5 var(--f-mono); tab-size: 2; padding: 12px; border-radius: 6px;
+  border: 1px solid var(--line-soft); background: var(--paper); color: var(--ink); white-space: pre; overflow: auto; }
+.arch-src textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.arch-src .status { font: 12px/1.4 var(--f-mono); }
+.arch-src .status.ok { color: var(--ok); }
+.arch-src .status.err { color: var(--err); }
+
+/* ---- Mapa SVG ---- */
+.arch-map { display: block; width: 100%; min-width: 760px; height: auto; user-select: none; }
+.arch-map text { paint-order: stroke; stroke: var(--paper); stroke-width: 4px; stroke-linejoin: round; }
+.arch-map .t-name { font: 600 14.5px var(--f-body); fill: var(--ink); }
+.arch-map .t-sub { font: 11.5px var(--f-mono); fill: var(--muted); }
+.arch-map .t-slab { font: 500 12px var(--f-mono); fill: var(--muted); letter-spacing: .06em; stroke: none; }
+.arch-map .hatch-paper { fill: var(--hatch); }
+.arch-map .hatch-ink { fill: color-mix(in oklab, var(--ink) 35%, transparent); }
+.arch-map .hatch { stroke: none; pointer-events: none; }
+
+.arch-map .slab path:not(.hatch) { stroke: var(--ink); stroke-width: 1; }
+.arch-map .slab .top { fill: var(--slab-top); }
+.arch-map .slab .lf { fill: var(--slab-l); }
+.arch-map .slab .rt { fill: var(--slab-r); }
+.arch-map .slab { transition: opacity .25s; }
+.arch-map .slab.dim { opacity: .5; }
+.arch-map .slab.hit .top { fill: color-mix(in oklab, var(--slab-top) 80%, var(--accent)); }
+
+/* Tintas planas que se sobreimprimen (multiply) y caras laterales sombreadas a líneas */
+.arch-map .blk { cursor: pointer; mix-blend-mode: multiply; outline: none; transition: transform .25s cubic-bezier(.2, .7, .2, 1), opacity .25s; }
+.arch-map .blk path:not(.hatch) { stroke: var(--ink); stroke-opacity: .9; stroke-width: 1.2; stroke-linejoin: round; }
+.arch-map .blk .top, .arch-map .blk .lf { fill: var(--c); }
+.arch-map .blk .rt { fill: color-mix(in oklab, var(--c) 82%, var(--ink)); }
+.arch-map .blk:focus-visible path:not(.hatch) { stroke: var(--accent); stroke-width: 2; }
+.arch-map .blk.hit, .arch-map .blk.sel, .arch-map .lbl.hit, .arch-map .lbl.sel { transform: translateY(-6px); }
+.arch-map .blk.dim, .arch-map .lbl.dim { opacity: .28; }
+.arch-map .lbl { transition: transform .25s cubic-bezier(.2, .7, .2, 1), opacity .25s; pointer-events: none; }
+
+.arch-map .edge { fill: none; stroke: var(--edge); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: opacity .25s, stroke .25s; }
+.arch-map .edge.arc { stroke-dasharray: 2 5; }
+.arch-map .edge.dim { opacity: .3; }
+.arch-map .edge.hot { stroke: var(--hot); stroke-width: 2.2; stroke-dasharray: 7 6; animation: arch-flow .9s linear infinite; }
+.arch-map .dot { fill: var(--hot); }
+@keyframes arch-flow { to { stroke-dashoffset: -13; } }
+
+/* Modo "cómo está hecho" */
+.arch-map.show-hit .blk { mix-blend-mode: normal; }
+.arch-map.show-hit .blk path:not(.hatch) { fill: transparent; stroke: var(--accent); stroke-opacity: 1; stroke-dasharray: 4 3; }
+.arch-map.show-hit .blk .hatch { display: none; }
+.arch-map .order { pointer-events: none; }
+.arch-map .order rect { fill: var(--accent); }
+.arch-map .order text { font: 600 10px var(--f-mono); fill: var(--on-accent); stroke: none; }
+.arch-map .order .o-edge rect { fill: var(--paper); stroke: var(--accent); }
+.arch-map .order .o-edge text { fill: var(--accent); }
+
+.arch .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .arch-map .edge.hot { animation: none; }
+  .arch-map .blk, .arch-map .lbl { transition: none; }
+}
+@media (max-width: 960px) {
+  .arch-layout { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 520px) {
+  .arch .seg { display: grid; grid-auto-flow: column; width: 100%; }
+  .arch .seg button { padding-inline: 4px; }
+}
